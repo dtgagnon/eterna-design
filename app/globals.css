@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* The following is a Tailwind CSS v4 feature that may trigger IDE warnings */
+/* but it works correctly in the build process */
+@custom-variant dark (&:where(.dark, .dark *));
