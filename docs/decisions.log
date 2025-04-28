@@ -1,0 +1,9 @@
+2025-04-28 15:55 ET | DECISION: All agreed-upon project decisions must be captured in this decisions.log file inside the `docs` directory. This log is the canonical record of technical and process decisions for the project. Any time a new decision is made or an existing one is changed, append a clear entry here.
+
+2025-04-28 15:53 ET | DECISION: The project uses Next.js App Router (/app), TypeScript for all source files, manual Tailwind CSS setup, and is managed with Nix Flakes and direnv. Directory structure: /app, /app/api, /components, /lib, /public. All new components and routes are TypeScript files under /app.
+
+2025-04-28 16:29 ET | DECISION: Test-driven development (TDD) is required for all new features and components. Tests must be written first, followed by only the minimal implementation code needed to pass. No code is merged without tests.
+
+2025-04-28 16:42 ET | DECISION: The project will follow Atomic Design methodology for component organization. Component structure: atoms (basic UI elements), molecules (combinations of atoms), organisms (combinations of molecules/atoms), templates (page layouts), and pages (specific instances of templates). All components will be properly encapsulated in their own directories with index.ts exports and accompanying tests.
+
+2025-04-28 16:46 ET | DECISION: Project documentation will be stored in the `docs` directory instead of `dev-plans` to better reflect industry standards and improve discoverability. All documentation files have been migrated accordingly.
