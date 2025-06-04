@@ -23,7 +23,7 @@ if (!assistantId) {
   // In production, you might want to throw an error during build or startup
 }
 
-// POST /api/chat - Send a message and get a streaming response using Assistants API
+// POST /api/chat/openai - Send a message and get a streaming response using Assistants API
 export async function POST(request: NextRequest) {
   if (!assistantId) {
     return new Response(JSON.stringify({ error: 'Assistant configuration error.' }), {
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
                         content: contentValue,
                         threadId: thread.id
                       };
-                      controller.enqueue(encoder.encode(JSON.stringify(event) + '\n'));
+                      controller.enqueue(encoder.encode(`data: ${JSON.stringify(event)}\n\n`));
                     }
                   }
                 }
@@ -137,29 +137,29 @@ export async function POST(request: NextRequest) {
           // If we have a run that requires action but we didn't handle it properly
           if (requiresAction && runId) {
             controller.enqueue(encoder.encode(
-              JSON.stringify({
+              `data: ${JSON.stringify({
                 type: 'error',
                 content: 'Function calls are not fully supported in this demo.'
-              }) + '\n'
+              })}\n\n`
             ));
           }
           
           // Send a final message with the complete content and thread ID
           controller.enqueue(encoder.encode(
-            JSON.stringify({
+            `data: ${JSON.stringify({
               type: 'complete',
               threadId: thread.id,
               content: accumulatedContent
-            }) + '\n'
+            })}\n\n`
           ));
           
         } catch (error) {
           console.error('Stream error:', error);
           controller.enqueue(encoder.encode(
-            JSON.stringify({
+            `data: ${JSON.stringify({
               type: 'error',
               content: 'An error occurred while processing the stream.'
-            }) + '\n'
+            })}\n\n`
           ));
         } finally {
           controller.close();
@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET /api/chat - Get chat history for a session from OpenAI Thread
+// GET /api/chat/openai - Get chat history for a session from OpenAI Thread
 export async function GET(request: NextRequest) {
   try {
     const threadId = request.nextUrl.searchParams.get('sessionId');
@@ -231,7 +231,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// DELETE /api/chat - Delete a chat session (OpenAI Thread)
+// DELETE /api/chat/openai - Delete a chat session (OpenAI Thread)
 export async function DELETE(request: NextRequest) {
   try {
     const threadId = request.nextUrl.searchParams.get('sessionId');
