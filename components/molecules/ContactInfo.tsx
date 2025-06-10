@@ -1,5 +1,4 @@
 import React from 'react';
-import { IconLink } from '@/components/atoms';
 
 interface ContactInfoProps {
   name: string;

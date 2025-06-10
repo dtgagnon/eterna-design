@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Derek Gagnon",
-  description: "Derek Gagnon's Portfolio",
+  title: "Eterna Design",
+  description: "Eterna Design Studio",
 };
 
 export default function RootLayout({ children }: Readonly<{

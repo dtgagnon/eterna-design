@@ -1,26 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Navbar, Footer, MainContent } from '@/components/organisms';
-
+import React from 'react';
+import { Navbar, Footer } from '@/components/organisms';
 import { ThemeToggle } from '@/components/atoms';
-import { SocialLinks } from '@/components/molecules';
-import { ChatCard } from '@/components/organisms/chat';
 
 interface MainLayoutProps {
   children: React.ReactNode;
   className?: string;
   showFooter?: boolean;
-  showSocialLinks?: boolean;
-  showChat?: boolean;
 }
 
 export default function MainLayout({
   children,
   className = '',
-  showFooter = true,
-  showSocialLinks = true,
-  showChat = true
+  showFooter = true
 }: MainLayoutProps) {
 
   return (
@@ -38,11 +31,6 @@ export default function MainLayout({
       {/* Main content area - takes remaining space and scrolls if needed */}
       <main className={`flex-1 min-h-0 max-h-[calc(100dvh-9rem)] bg-navy-900 dark:bg-navy-950 overflow-auto ${className}`}>
         <div className="flex flex-col justify-center h-full relative px-4 md:px-8 py-4 overflow-auto">
-          {showSocialLinks && (
-            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 ml-4 md:ml-8 z-10">
-              <SocialLinks />
-            </div>
-          )}
           {children}
         </div>
       </main>
@@ -51,12 +39,6 @@ export default function MainLayout({
       {showFooter && <Footer className="flex-shrink-0 max-h-[6rem]" />}
       
 
-      {/* Chat component that peeks from bottom */}
-      {showChat && (
-        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 mb-0 z-20">
-          <ChatCard />
-        </div>
-      )}
     </div>
   );
 }

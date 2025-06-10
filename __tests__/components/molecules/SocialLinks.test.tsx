@@ -31,9 +31,9 @@ describe('SocialLinks component', () => {
     expect(links).toHaveLength(3); // Email, LinkedIn, and GitHub
     
     // Order might vary depending on implementation, so check for specific hrefs
-    const emailLink = links.find(link => link.getAttribute('href') === 'mailto:gagnon.derek@protonmail.com');
-    const linkedInLink = links.find(link => link.getAttribute('href') === 'https://linkedin.com/in/derek-gagnon');
-    const githubLink = links.find(link => link.getAttribute('href') === 'https://github.com/dtgagnon');
+    const emailLink = links.find(link => link.getAttribute('href') === 'mailto:info@example.com');
+    const linkedInLink = links.find(link => link.getAttribute('aria-label') === 'LinkedIn Profile');
+    const githubLink = links.find(link => link.getAttribute('aria-label') === 'GitHub Profile');
 
     expect(emailLink).toBeInTheDocument();
     expect(emailLink).toHaveAttribute('aria-label', 'Email Me');

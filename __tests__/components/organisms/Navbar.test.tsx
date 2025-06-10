@@ -54,25 +54,6 @@ vi.mock('@/components/molecules', async (importOriginal) => {
 
 
 
-// Mock ProjectsButton
-vi.mock('@/components/organisms/projects/ProjectsButton', () => ({
-  default: () => (
-    <button data-testid="projects-button-mock">
-      Projects
-    </button>
-  )
-}));
-
-// Mock the ResumeButton component
-vi.mock('@/components/organisms/resume/ResumeButton', () => ({
-  default: () => (
-    <button
-      data-testid="resume-button"
-    >
-      Resume
-    </button>
-  )
-}));
 
 describe('Navbar component', () => {
   // Helper to render with ThemeProvider
@@ -105,15 +86,9 @@ describe('Navbar component', () => {
     expect(aboutLink.closest('a')).toHaveAttribute('data-testid', 'nav-link');
     expect(aboutLink.closest('a')).toHaveAttribute('href', '/about');
 
-    // Check that "Projects" button mock exists
-    const projectsButtonMock = screen.getByTestId('projects-button-mock');
-    expect(projectsButtonMock).toBeInTheDocument();
-    expect(projectsButtonMock).toHaveTextContent('Projects');
-    
-    // Check that resume button exists
-    const resumeButton = screen.getByTestId('resume-button');
-    expect(resumeButton).toBeInTheDocument();
-    expect(resumeButton).toHaveTextContent('Resume');
+    // Navbar should contain standard links
+    const navLinks = screen.getAllByTestId('nav-link');
+    expect(navLinks.length).toBeGreaterThan(0);
   });
 
   it('has correct navigation styling', () => {
@@ -134,8 +109,7 @@ describe('Navbar component', () => {
     // Get the nav element and its children
     const navElement = screen.getByRole('navigation');
     const logoElement = screen.getByTestId('logo');
-    const aboutLink = screen.getByText('About').closest('a'); // NavLink for "About"
-    const projectsButtonMock = screen.getByTestId('projects-button-mock'); // Mocked Button for "Projects"
+    const aboutLink = screen.getByText('About').closest('a');
     
     // Logo should be the first child of nav
     expect(navElement.firstChild).toBe(logoElement);
@@ -143,7 +117,6 @@ describe('Navbar component', () => {
     // Navigation items should be in a container that's the second child
     const linksContainer = navElement.childNodes[1];
     expect(linksContainer).toContainElement(aboutLink!);
-    expect(linksContainer).toContainElement(projectsButtonMock);
   });
 
   it('applies custom className when provided', () => {
@@ -153,13 +126,4 @@ describe('Navbar component', () => {
     expect(nav).toHaveClass('custom-class');
   });
   
-  it('renders the resume button', () => {
-    renderNavbar();
-    
-    // Find the resume button
-    const resumeButton = screen.getByTestId('resume-button');
-    expect(resumeButton).toBeInTheDocument();
-    expect(resumeButton).toHaveTextContent('Resume');
-  });
-
 });

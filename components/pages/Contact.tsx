@@ -23,11 +23,11 @@ export default function Contact() {
             
             <div>
               <h4 className="font-medium mb-2">Email</h4>
-              <a 
-                href="mailto:gagnon.derek@protonmail.com" 
+              <a
+                href="mailto:info@example.com"
                 className="text-[#7cbddb] hover:underline"
               >
-                gagnon.derek@protonmail.com
+                info@example.com
               </a>
             </div>
             
@@ -38,7 +38,7 @@ export default function Contact() {
             
             <div>
               <h4 className="font-medium mb-2">Location</h4>
-              <p className="text-gray-600 dark:text-gray-400">Boston, Massachusetts</p>
+              <p className="text-gray-600 dark:text-gray-400">New York, NY</p>
             </div>
           </div>
           

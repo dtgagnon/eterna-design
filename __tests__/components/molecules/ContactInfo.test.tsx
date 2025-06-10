@@ -4,21 +4,21 @@ import ContactInfo from '@/components/molecules/ContactInfo';
 
 describe('ContactInfo component', () => {
   const defaultProps = {
-    name: 'Derek Gagnon',
-    email: 'gagnon.derek@protonmail.com'
+    name: 'Eterna Design',
+    email: 'info@example.com'
   };
 
   it('renders name and email correctly', () => {
     render(<ContactInfo {...defaultProps} showEmail={true} />);
     
-    expect(screen.getByText('Derek Gagnon')).toBeInTheDocument();
-    expect(screen.getByText('gagnon.derek@protonmail.com')).toBeInTheDocument();
+    expect(screen.getByText('Eterna Design')).toBeInTheDocument();
+    expect(screen.getByText('info@example.com')).toBeInTheDocument();
   });
   
   it('renders name in a heading element', () => {
     render(<ContactInfo {...defaultProps} />);
     
-    const nameHeading = screen.getByText('Derek Gagnon');
+    const nameHeading = screen.getByText('Eterna Design');
     expect(nameHeading.tagName).toBe('H2');
     expect(nameHeading).toHaveClass('text-2xl', 'font-semibold');
   });
@@ -26,16 +26,16 @@ describe('ContactInfo component', () => {
   it('creates a mailto link for the email', () => {
     render(<ContactInfo {...defaultProps} showEmail={true} />);
     
-    const emailLink = screen.getByText('gagnon.derek@protonmail.com');
+    const emailLink = screen.getByText('info@example.com');
     expect(emailLink.tagName).toBe('A');
-    expect(emailLink).toHaveAttribute('href', 'mailto:gagnon.derek@protonmail.com');
+    expect(emailLink).toHaveAttribute('href', 'mailto:info@example.com');
   });
   
   it('applies accessibility attributes to the email link', () => {
     render(<ContactInfo {...defaultProps} showEmail={true} />);
     
-    const emailLink = screen.getByText('gagnon.derek@protonmail.com');
-    expect(emailLink).toHaveAttribute('aria-label', 'Send email to Derek Gagnon');
+    const emailLink = screen.getByText('info@example.com');
+    expect(emailLink).toHaveAttribute('aria-label', 'Send email to Eterna Design');
   });
   
   it('shows label when showLabel is true', () => {
@@ -53,14 +53,14 @@ describe('ContactInfo component', () => {
   it('applies custom className to container', () => {
     render(<ContactInfo {...defaultProps} className="test-class" />);
     
-    const container = screen.getByText('Derek Gagnon').closest('div');
+    const container = screen.getByText('Eterna Design').closest('div');
     expect(container).toHaveClass('test-class');
   });
   
   it('applies hover styling to email link', () => {
     render(<ContactInfo {...defaultProps} showEmail={true} />);
     
-    const emailLink = screen.getByText('gagnon.derek@protonmail.com');
+    const emailLink = screen.getByText('info@example.com');
     expect(emailLink).toHaveClass('hover:border-b', 'border-dashed');
   });
 });

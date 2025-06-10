@@ -29,15 +29,15 @@ export default function Logo({
     <div className={`relative flex items-center gap-3 ${className}`}>
       <div className="relative group">
         <Image
-          src="/images/derek-logo.jpg"
-          alt="Derek's Logo"
+          src="/images/logo-ani-0.jpeg"
+          alt="Company Logo"
           width={imageSize}
           height={imageSize}
           priority
           className="transition-opacity duration-300 ease-in-out z-10 group-hover:opacity-0"
         />
         <Image
-          src="/images/logo-ani-0.jpeg" 
+          src="/images/logo-ani-1.jpeg"
           alt="Logo Hover Effect"
           width={imageSize}
           height={imageSize}
@@ -48,7 +48,7 @@ export default function Logo({
       
       {withText && (
         <span className="font-semibold text-xl text-current">
-          Derek Gagnon
+          Eterna Design
         </span>
       )}
     </div>

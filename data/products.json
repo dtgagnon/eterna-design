@@ -1,0 +1,16 @@
+[
+  {
+    "id": "logo-design",
+    "name": "Custom Logo Design",
+    "price": 5000,
+    "imageUrl": "/images/logo-ani-0.jpeg",
+    "description": "Professional logo tailored to your brand"
+  },
+  {
+    "id": "website-consult",
+    "name": "Website Consultation",
+    "price": 2000,
+    "imageUrl": "/images/logo-ani-1.jpeg",
+    "description": "One hour design consultation for your website"
+  }
+]

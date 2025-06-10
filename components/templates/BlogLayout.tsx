@@ -20,7 +20,7 @@ export default function BlogLayout({
   children,
   title,
   date,
-  author = { name: 'Derek Gagnon' },
+  author = { name: 'Eterna Design' },
   coverImage,
   tags = [],
   readTime = '5 min read',

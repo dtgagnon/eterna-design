@@ -21,7 +21,7 @@ vi.mock('next/image', () => ({
 
 describe('ProfileImage component', () => {
   const defaultProps = {
-    src: '/images/profile.jpg',
+    src: '/images/logo-ani-0.jpeg',
     alt: 'Test profile image'
   };
 

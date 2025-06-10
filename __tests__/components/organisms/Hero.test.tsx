@@ -82,7 +82,7 @@ describe('Hero component', () => {
     const image = screen.getByTestId('mock-profile-image');
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src', '/images/custom.jpg');
-    expect(image).toHaveAttribute('alt', 'Derek headshot image');
+    expect(image).toHaveAttribute('alt', 'Profile image');
     expect(image).toHaveClass('rounded-full');
   });
   
@@ -90,7 +90,7 @@ describe('Hero component', () => {
     render(<Hero title="Welcome" />);
     
     const image = screen.getByTestId('mock-profile-image');
-    expect(image).toHaveAttribute('src', '/images/profile.jpg');
+    expect(image).toHaveAttribute('src', '/images/logo-ani-0.jpeg');
   });
   
   it('renders CTA button with correct text', () => {

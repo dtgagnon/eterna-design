@@ -2,8 +2,8 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-// Database file path
-const DB_PATH = path.join(process.cwd(), 'data', 'portfolio.db');
+// Database file path for storing commissions
+const DB_PATH = path.join(process.cwd(), 'data', 'app.db');
 
 // Ensure data directory exists
 const ensureDbDirectory = () => {
@@ -23,75 +23,17 @@ export function getDbConnection() {
 export function initializeDatabase() {
   const db = getDbConnection();
 
-  // Create users table
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id TEXT PRIMARY KEY,
-      email TEXT UNIQUE,
-      name TEXT,
-      created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
-    );
-  `);
 
-  // Create chat_messages table
+  // Create commissions table for service requests
   db.exec(`
-    CREATE TABLE IF NOT EXISTS chat_messages (
+    CREATE TABLE IF NOT EXISTS commissions (
       id TEXT PRIMARY KEY,
-      user_id TEXT,
-      content TEXT NOT NULL,
-      role TEXT NOT NULL,
-      created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-      session_id TEXT NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-  `);
-
-  // Create projects table
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS projects (
-      id TEXT PRIMARY KEY,
-      title TEXT NOT NULL,
-      description TEXT,
-      content TEXT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      details TEXT NOT NULL,
+      budget TEXT,
       created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
       updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
-    );
-  `);
-
-  // Create chat_project_links table to connect chat messages to projects
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS chat_project_links (
-      id TEXT PRIMARY KEY,
-      chat_message_id TEXT NOT NULL,
-      project_id TEXT NOT NULL,
-      created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-      FOREIGN KEY (chat_message_id) REFERENCES chat_messages(id),
-      FOREIGN KEY (project_id) REFERENCES projects(id)
-    );
-  `);
-
-  // Create sessions table
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS sessions (
-      id TEXT PRIMARY KEY,
-      user_id TEXT,
-      created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-      last_active_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-      FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-  `);
-
-  // Create telemetry_events table for analytics
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS telemetry_events (
-      id TEXT PRIMARY KEY,
-      event_type TEXT NOT NULL,
-      event_data TEXT,
-      user_id TEXT,
-      session_id TEXT,
-      created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-      FOREIGN KEY (user_id) REFERENCES users(id),
-      FOREIGN KEY (session_id) REFERENCES sessions(id)
     );
   `);
 
