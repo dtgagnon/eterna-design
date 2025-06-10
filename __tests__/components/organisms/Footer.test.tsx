@@ -78,7 +78,7 @@ describe('Footer component', () => {
     
     render(<Footer />);
     
-    expect(screen.getByText(/© 2025 Derek Gagnon/i)).toBeInTheDocument();
+    expect(screen.getByText(/© 2025 Eterna Design/i)).toBeInTheDocument();
     
     // Restore the original Date
     global.Date = originalDate;

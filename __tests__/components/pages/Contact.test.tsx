@@ -60,8 +60,8 @@ describe('Contact Page Component', () => {
     expect(screen.getByText('Location')).toBeInTheDocument();
     
     // Check for actual contact details
-    expect(screen.getByText('gagnon.derek@protonmail.com')).toBeInTheDocument();
-    expect(screen.getByText('Boston, Massachusetts')).toBeInTheDocument();
+    expect(screen.getByText('info@example.com')).toBeInTheDocument();
+    expect(screen.getByText('New York, NY')).toBeInTheDocument();
   });
 
   it('renders the contact form', () => {

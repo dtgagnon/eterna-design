@@ -65,13 +65,13 @@ describe('Logo component', () => {
   it('includes text when withText is true', () => {
     render(<Logo withText={true} />);
     
-    expect(screen.getByText('Derek Gagnon')).toBeInTheDocument();
+    expect(screen.getByText('Eterna Design')).toBeInTheDocument();
   });
   
   it('does not include text when withText is false', () => {
     render(<Logo withText={false} />);
     
-    expect(screen.queryByText('Derek Gagnon')).not.toBeInTheDocument();
+    expect(screen.queryByText('Eterna Design')).not.toBeInTheDocument();
   });
   
   it('applies custom className to container', () => {

@@ -1,20 +1,12 @@
 import { initializeDatabase } from './dbClient';
-import { UserRepository } from './repositories/userRepository';
-import { MessageRepository } from './repositories/messageRepository';
-import { ProjectRepository } from './repositories/projectRepository';
-import { SessionRepository } from './repositories/sessionRepository';
-import { TelemetryRepository } from './repositories/telemetryRepository';
+import { CommissionRepository } from './repositories/commissionRepository';
 
 // Initialize database on first import
 initializeDatabase();
 
 // Export repositories for use throughout the app
 export {
-  UserRepository,
-  MessageRepository,
-  ProjectRepository,
-  SessionRepository,
-  TelemetryRepository
+  CommissionRepository
 };
 
 // For convenience, export types

@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import Input from '@/components/atoms/Input';
 import Button from '@/components/atoms/Button';
 
-interface ContactFormProps {
+interface CommissionFormProps {
   className?: string;
-  onSubmit?: (data: FormData) => void;
 }
 
 interface FormData {
   name: string;
   email: string;
-  message: string;
+  details: string;
+  budget: string;
 }
 
-export default function ContactForm({ className = '', onSubmit }: ContactFormProps) {
+export default function CommissionForm({ className = '' }: CommissionFormProps) {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    message: ''
+    details: '',
+    budget: ''
   });
   
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -46,8 +47,8 @@ export default function ContactForm({ className = '', onSubmit }: ContactFormPro
       newErrors.email = 'Email is invalid';
     }
     
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+    if (!formData.details.trim()) {
+      newErrors.details = 'Details are required';
     }
     
     setErrors(newErrors);
@@ -63,15 +64,14 @@ export default function ContactForm({ className = '', onSubmit }: ContactFormPro
     setSubmitStatus('idle');
     
     try {
-      if (onSubmit) {
-        await onSubmit(formData);
-      } else {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
+      await fetch('/api/commissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
       
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', details: '', budget: '' });
     } catch {
       setSubmitStatus('error');
     } finally {
@@ -83,13 +83,13 @@ export default function ContactForm({ className = '', onSubmit }: ContactFormPro
     <form onSubmit={handleSubmit} className={`space-y-6 ${className}`} role="form">
       {submitStatus === 'success' && (
         <div className="p-4 bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200 rounded-md">
-          Thank you for your message! I&apos;ll get back to you as soon as possible.
+          Thank you for your request! I&apos;ll get back to you as soon as possible.
         </div>
       )}
       
       {submitStatus === 'error' && (
         <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 rounded-md">
-          There was an error sending your message. Please try again later.
+          There was an error sending your request. Please try again later.
         </div>
       )}
       
@@ -122,25 +122,36 @@ export default function ContactForm({ className = '', onSubmit }: ContactFormPro
       </div>
       
       <div>
-        <label 
-          htmlFor="message"
+        <label
+          htmlFor="details"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
         >
-          Message<span className="text-red-500 ml-1">*</span>
+          Project Details<span className="text-red-500 ml-1">*</span>
         </label>
         <textarea
-          id="message"
-          name="message"
-          value={formData.message}
+          id="details"
+          name="details"
+          value={formData.details}
           onChange={handleChange}
           rows={5}
-          className={`w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent ${errors.message ? 'border-red-500 focus:ring-red-500' : ''}`}
-          placeholder="Your message"
+          className={`w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent ${errors.details ? 'border-red-500 focus:ring-red-500' : ''}`}
+          placeholder="Your details"
           required
         />
-        {errors.message && (
-          <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+        {errors.details && (
+          <p className="text-red-500 text-xs mt-1">{errors.details}</p>
         )}
+      </div>
+
+      <div>
+        <Input
+          id="budget"
+          name="budget"
+          value={formData.budget}
+          onChange={handleChange}
+          label="Estimated Budget"
+          placeholder="Optional"
+        />
       </div>
       
       <div>
@@ -151,7 +162,7 @@ export default function ContactForm({ className = '', onSubmit }: ContactFormPro
           size="md"
           className="w-full md:w-auto"
         >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
+          {isSubmitting ? 'Submitting...' : 'Request Commission'}
         </Button>
       </div>
     </form>

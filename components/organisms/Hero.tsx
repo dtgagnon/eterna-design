@@ -14,7 +14,7 @@ interface HeroProps {
 export default function Hero({
   title,
   subtitle,
-  imageSrc = '/images/profile.jpg',
+  imageSrc = '/images/logo-ani-0.jpeg',
   ctaText = 'View Projects',
   ctaLink = '/projects',
   className = '',
@@ -52,7 +52,7 @@ export default function Hero({
             {imageSrc && (
               <ProfileImage
                 src={imageSrc}
-                alt="Derek headshot image"
+                alt="Profile image"
                 priority
                 size="md"
               />

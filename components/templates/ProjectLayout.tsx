@@ -9,7 +9,6 @@ interface ProjectLayoutProps {
   technologies?: string[];
   github?: string;
   demo?: string;
-  image?: string;
   className?: string;
 }
 
@@ -20,7 +19,6 @@ export default function ProjectLayout({
   technologies = [],
   github,
   demo,
-  image,
   className = ''
 }: ProjectLayoutProps) {
   return (

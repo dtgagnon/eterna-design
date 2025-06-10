@@ -14,27 +14,11 @@ vi.mock('@/components/organisms', () => ({
   Footer: () => <div data-testid="footer">Footer</div>
 }));
 
-vi.mock('@/components/organisms/chat', () => ({
-  ChatCard: () => <div data-testid="chat-component" className="fixed bottom-0">Chat Component</div>
-}));
-
 vi.mock('@/components/atoms', () => ({
   ThemeToggle: () => <div data-testid="theme-toggle">ThemeToggle</div>
 }));
 
-vi.mock('@/components/molecules', () => ({
-  SocialLinks: () => <div data-testid="social-links" className="absolute left-0">Social Links</div>
-}));
 
-// We no longer need to mock ResumeCard as it's managed by ResumeButton component
-vi.mock('@/components/organisms/resume/ResumeButton', () => ({
-  __esModule: true,
-  default: () => (
-    <button data-testid="resume-button">
-      Resume
-    </button>
-  )
-}));
 
 describe('MainLayout component', () => {
   // Functional tests
@@ -91,44 +75,7 @@ describe('MainLayout component', () => {
       expect(mainElement).toHaveClass('custom-class');
     });
 
-    it('does not render social links when showSocialLinks is false', () => {
-      render(
-        <ThemeProvider>
-          <MainLayout showSocialLinks={false}>
-            <div>Main Content</div>
-          </MainLayout>
-        </ThemeProvider>
-      );
-      
-      expect(screen.queryByTestId('social-links')).not.toBeInTheDocument();
-    });
 
-    it('does not render chat when showChat is false', () => {
-      render(
-        <ThemeProvider>
-          <MainLayout showChat={false}>
-            <div>Main Content</div>
-          </MainLayout>
-        </ThemeProvider>
-      );
-      
-      expect(screen.queryByTestId('chat-component')).not.toBeInTheDocument();
-    });
-
-    it('renders the resume button in navbar', () => {
-      render(
-        <ThemeProvider>
-          <MainLayout>
-            <div>Main Content</div>
-          </MainLayout>
-        </ThemeProvider>
-      );
-      
-      // The resume button should be visible
-      const resumeButton = screen.getByTestId('resume-button');
-      expect(resumeButton).toBeInTheDocument();
-      expect(resumeButton).toHaveTextContent('Resume');
-    });
   });
 
   // Viewport tests
@@ -218,12 +165,6 @@ describe('MainLayout component', () => {
       const mockFooters = screen.getAllByTestId('footer');
       expect(mockFooters.length).toBeGreaterThan(0);
       
-      // Chat component visibility
-      const mockChatComponent = screen.getByTestId('chat-component');
-      expect(mockChatComponent).toBeInTheDocument();
-      const chatContainer = mockChatComponent.closest('div');
-      expect(chatContainer).toHaveClass('fixed');
-      expect(chatContainer).toHaveClass('bottom-0');
     });
   });
 
@@ -247,23 +188,7 @@ describe('MainLayout component', () => {
       expect(mainElement).toHaveClass('bg-navy-900', 'dark:bg-navy-950');
     });
 
-    it('positions social links on the left side', () => {
-      const socialLinks = screen.getByTestId('social-links');
-      expect(socialLinks).toHaveClass('absolute', 'left-0');
-      
-      // Since we're mocking, we just verify the parent div exists, not its exact classes
-      const socialLinksContainer = socialLinks.closest('div');
-      expect(socialLinksContainer).toBeInTheDocument();
-    });
-
-    it('positions chat component at the bottom', () => {
-      const chatComponent = screen.getByTestId('chat-component');
-      expect(chatComponent).toHaveClass('fixed', 'bottom-0');
-      
-      // Since we're mocking, we just verify the parent div exists, not its exact classes
-      const chatContainer = chatComponent.closest('div');
-      expect(chatContainer).toBeInTheDocument();
-    });
+    // Layout style checks
 
     it('applies responsive padding to content', () => {
       const contentContainer = container.querySelector('main > div');

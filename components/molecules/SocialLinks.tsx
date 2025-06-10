@@ -13,7 +13,7 @@ export default function SocialLinks({
   className = '',
   direction = 'row',
   iconSize = 'md',
-  email = 'gagnon.derek@protonmail.com'
+  email = 'info@example.com'
 }: SocialLinksProps) {
   const sizes = {
     sm: 'w-4 h-4',
@@ -30,11 +30,11 @@ export default function SocialLinks({
         <EmailIcon className={sizeClass} />
       </IconLink>
 
-      <IconLink href="https://linkedin.com/in/derek-gagnon" label="LinkedIn Profile">
+      <IconLink href="#" label="LinkedIn Profile">
         <LinkedInIcon className={sizeClass} />
       </IconLink>
       
-      <IconLink href="https://github.com/dtgagnon" label="GitHub Profile">
+      <IconLink href="#" label="GitHub Profile">
         <GitHubIcon className={sizeClass} />
       </IconLink>
     </div>
